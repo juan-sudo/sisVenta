@@ -1,0 +1,57 @@
+.container {
+  position: relative; /* Establece el contenedor como posición relativa */
+}
+
+.product-list {
+  position: absolute; /* Establece el div de la lista de productos como posición absoluta */
+  top: 0; /* Ajusta la posición vertical según sea necesario */
+  left: 0; /* Ajusta la posición horizontal según sea necesario */
+  z-index: 2; /* Establece un z-index superior para que aparezca por encima de otros divs */
+  background-color:#343a40; /* Establece un fondo blanco o el color deseado */
+  padding: 10px 0; /* Añade relleno según sea necesario */
+  border: 1px solid #80bdff; /* Añade un borde opcional */
+  width: 100%;
+  color: #fff;
+
+}
+
+ /* .product-list>ul{
+ padding: 0;
+
+  padding: 0;
+ } */
+
+ .product-list >ul >li{
+  
+  list-style-type: none;
+  padding-left: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: 500;
+  height:  calc(2.25rem + 2px);
+  display: flex; /* Utiliza flexbox para el centrado vertical */
+align-items: center;
+ }
+
+ .product-list >ul>li:hover {
+  background-color: #454d55; /* Cambia el color de fondo cuando pasas el cursor sobre el elemento */
+}
+
+.btn-circle {
+  width: 20px; /* Ancho deseado */
+  height: 20px; /* Altura deseada */
+  border-radius: 50%; /* Hace que el botón sea redondo */
+  padding: 0; /* Elimina cualquier espacio interior del botón */
+  font-size: 12px; /* Ajusta el tamaño de la fuente si es necesario */
+}
+
+.mi-div {
+  width: 250px;
+  height: 220px;
+ 
+  outline: 2px solid #6c757d;
+}
+
+
+
+

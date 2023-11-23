@@ -1,0 +1,185 @@
+
+<div class="modal fade" id="modal-lg"  *ngIf="clienteMosalService.modal"   >
+    <div class="modal-dialog modal-lg">
+      
+      <div class="modal-content">
+       
+        <div class="modal-header ">
+          <h4 class="modal-title d-flex justify-content-center">Registro de nuevo usuario</h4>
+          <button
+            type="button"
+            
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+          <div class="row">
+            <div class="col-12">
+              <p style="color:#000; font-style: italic">Los campos con signo (*) son obligatorio</p>
+            </div>
+          </div>
+          <form [formGroup]="usuarioForm">
+            <div class="form-group">
+              <label for="nombres">Nombres (*):</label>
+              <input formControlName="nombres" class="form-control" id="nombres" placeholder="Ingrese nombres">
+              <div *ngIf="usuarioForm?.get('nombres')?.invalid && usuarioForm?.get('nombres')?.touched" style="background-color: #fff;color: red;border: none;">
+                <div *ngIf="usuarioForm.get('nombres')?.hasError('required')">Nombre es requerido</div>
+                <div *ngIf="usuarioForm.get('nombres')?.hasError('minlength')">Nombre debe tener al menos 3 caracteres</div>
+              </div>
+              
+            </div>
+            
+            <div class="form-group">
+              <label for="apellidoPaterno">apellido Paterno (*):</label>
+              <input formControlName="apellidoPaterno" class="form-control" id="apellidoPaterno" placeholder="Ingresa apellido"   >
+              <div *ngIf="usuarioForm?.get('apellidoPaterno')?.invalid && usuarioForm?.get('apellidoPaterno')?.touched" style="background-color: #fff;color: red;border: none;">
+                <div *ngIf="usuarioForm.get('apellidoPaterno')?.hasError('required')"> Dni o ruc es requerido</div>
+                <div *ngIf="usuarioForm.get('apellidoPaterno')?.hasError('minlength')">Dni o ruc debe tener al menos 3 caracteres</div>
+               
+              </div>
+              
+            </div>
+
+            <div class="form-group">
+              <label for="apellidoMaterno">apellido Materno (*):</label>
+              <input formControlName="apellidoMaterno" class="form-control" id="apellidoMaterno" placeholder="Ingresa apellido"   >
+              <div *ngIf="usuarioForm?.get('apellidoMaterno')?.invalid && usuarioForm?.get('apellidoMaterno')?.touched" style="background-color: #fff;color: red;border: none;">
+                <div *ngIf="usuarioForm.get('apellidoMaterno')?.hasError('required')"> Dni o ruc es requerido</div>
+                <div *ngIf="usuarioForm.get('apellidoMaterno')?.hasError('minlength')">Dni o ruc debe tener al menos 3 caracteres</div>
+                
+              </div>
+              
+            </div>
+
+            <div class="form-group">
+              <label for="dni">Dni (*):</label>
+              <input formControlName="dni" class="form-control" id="dni" placeholder="Ingrese dni"  >
+              <div *ngIf="usuarioForm?.get('dni')?.invalid && usuarioForm?.get('dni')?.touched" style="background-color: #fff;color: red;border: none;">
+                <div *ngIf="usuarioForm.get('dni')?.hasError('required')"> Dni  es requerido</div>
+                <div *ngIf="usuarioForm.get('dni')?.hasError('minlength')">Dni  debe tener al menos 8 caracteres</div>
+               
+              </div>
+              
+            </div>
+
+            <div class="form-group">
+              <label for="apellidoPaterno">Usuario (*):</label>
+              <input formControlName="usuario" class="form-control" id="usuario" placeholder="Ingrese usuario"  >
+              <div *ngIf="usuarioForm?.get('usuario')?.invalid && usuarioForm?.get('usuario')?.touched" style="background-color: #fff;color: red;border: none;">
+                <div *ngIf="usuarioForm.get('usuario')?.hasError('required')"> Dni o ruc es requerido</div>
+                <div *ngIf="usuarioForm.get('usuario')?.hasError('minlength')">Dni o ruc debe tener al menos 3 caracteres</div>
+               
+              </div>
+              
+            </div>
+
+            <div class="form-group">
+              <label for="contrasena">Contrasenia (*):</label>
+              <input formControlName="contrasena" class="form-control" id="contrasena" placeholder="Ingresa contrasena" maxlength="15"  >
+              <div *ngIf="usuarioForm?.get('contrasena')?.invalid && usuarioForm?.get('contrasena')?.touched" style="background-color: #fff;color: red;border: none;">
+                <div *ngIf="usuarioForm.get('contrasena')?.hasError('required')"> Dni o ruc es requerido</div>
+                <div *ngIf="usuarioForm.get('contrasena')?.hasError('minlength')">Dni o ruc debe tener al menos 3 caracteres</div>
+                
+              </div>
+              
+            </div>
+            <div class="form-group">
+              <label for="role">Role:</label>
+              <select id="role" class="form-control" style="width: 100%" formControlName="id" (change)="onRoleSelectionChange($event)">
+              <!-- <select id="role" class="form-control" style="width: 100%" formControlName="role.id" > -->
+                
+                <option selected>--Seleccione--</option>
+                <option *ngFor="let rol of roles" [value]="rol.id" [selected]="rol.id === usuarioForm.get('id')?.value">{{ rol.nombreRole }}</option>
+              </select>
+            </div>
+            
+<!-- 
+            <div class="form-group">
+              <label for="role">Role:</label>
+              <select id="role" class="form-control" style="width: 100%" formControlName="id" (change)="onRoleSelectionChange($event)">
+                <option selected>--Seleccione--</option>
+                <option *ngFor="let rol of roles" [value]="rol.id" [selected]="rol.id === usuarioForm.get('id')?.value">{{ rol.nombreRole }}</option>
+              </select>
+              
+            </div> -->
+
+            <!-- <div class="form-group">
+              <label for="role">Role:</label>
+              <select id="role" class="form-control" style="width: 100%" formControlName="id" (change)="onRoleSelectionChange($event)">
+                <option selected>--Seleccione--</option>
+                <option *ngFor="let rol of roles" [value]="rol.id" [selected]="rol.id === usuarioForm.get('id')?.value">{{ rol.nombreRole }}</option>
+              </select>
+              <div *ngIf="usuarioForm.get('role.id')?.hasError('required')">El rol es requerido</div>
+            </div> -->
+
+            <!-- <div class="form-group">
+              <label for="role">Role:</label>
+              <select id="role" class="form-control"   style="width: 100%"  formControlName="id" (change)="onRoleSelectionChange($event)">
+                <option   selected>--Seleccione--</option>
+                <option *ngFor="let rol of roles" [value]="rol.id"  [selected]="rol.id === usuarioForm.get('role')?.value" >{{ rol.nombreRole }}</option>
+              </select>
+              <div *ngIf="usuarioForm.get('role.id')?.hasError('required')">El rol es requerido</div>
+            </div> -->
+
+            <!-- <div class="form-group">
+              <label for="role">Role:</label>
+              <select id="role" formControlName="id">
+                <option value="" disabled>--Seleccione un rol--</option>
+                <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombreRole }}</option>
+              </select>
+              <div *ngIf="usuarioForm.get('id')?.hasError('required')">El rol es requerido</div>
+            </div> -->
+
+            <!-- <select class="form-control" style="width: 100%" formControlName="role.id"> -->
+              <!-- <option value="">--Seleccione un rol--</option> -->
+              <!-- <option *ngFor="let role of roles" [ngValue]="role.id">{{ role.id }}</option> -->
+            <!-- </select> -->
+            
+
+            <!-- <div class="form-group">
+              <label>Seleccione rol (*):</label>
+              <select class="form-control" style="width: 100%" formControlName="role.id">
+                <option value="">--Seleccione un rol--</option>
+                <option *ngFor="let role of roles" [value]="role.id">{{ role.nombreRole }}</option>
+              </select>
+              <div *ngIf="usuarioForm.get('role.id')?.hasError('required')">El rol es requerido</div>
+            </div> -->
+            
+            
+            
+            <!-- <div class="form-group">
+              <label >Seleccione rol (*):</label>
+              <select formControlName="role.id" class="form-control select2" style="width: 100%;" >
+              <option selected="selected">--Seleccione un rol--</option>
+              <option *ngFor="let role of roles" [ngValue]="role.id" >{{role.nombreRole}}</option>
+             
+              </select>
+              </div> -->
+
+           
+          
+            
+          
+              <div class="text-center">
+                <button type="button" *ngIf="isEmptyObject(usuarioRecibido) else actualizarButton" class="btn btn-success mr-2"  (click)="usuarioGuardar()">  <i class="fas fa-save"></i> Guardar</button>
+                  <ng-template #actualizarButton>
+                  <button type="button" *ngIf="!isEmptyObject(usuarioRecibido)" class="btn btn-success mr-2" (click)="usuarioActualizar()"> <i class="fas fa-save"></i> Actualizar</button>
+              </ng-template>
+    
+              </div>
+          </form>
+     
+        </div>
+        
+      
+      
+      </div>
+    
+    </div>
+  </div>
+  

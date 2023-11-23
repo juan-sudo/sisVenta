@@ -1,0 +1,84 @@
+
+<div class="modal fade" id="modal-ver-factura"  *ngIf="clienteMosalService.modal"   >
+    <div class="modal-dialog modal-lg">
+      
+      <div class="modal-content">
+       
+        <div class="modal-header ">
+          <h4 class="modal-title d-flex justify-content-center">Detalle Nota de venta</h4>
+          <button
+            type="button"
+            
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" >
+          <span ><strong>Nro: </strong> {{facturaDetalleRecibe.nroDocumento}}</span>
+          <br>
+         
+          <span><strong>CLIENTE</strong></span>
+          <br>
+          
+
+          <span> <strong>Nombre: </strong> {{facturaDetalleRecibe.cliente.nombreCliente}}</span>
+          <br>
+
+          <span><strong>Dni/ Ruc: </strong> {{facturaDetalleRecibe.cliente.dniRuc}}</span>
+          <br>
+
+          <span><strong>Direccion: </strong> {{facturaDetalleRecibe.cliente.direccion}}</span>
+         
+          <table class="table table-bordered table-striped table-hover ">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Descripcion</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Importe</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+              <tr *ngFor="let detalle of facturaDetalleRecibe.detalleFactura; let i=index">
+                <td>{{i+1}}</td>
+                <td>{{detalle.producto.descripcion}}</td>
+                <td>{{detalle.cantidad}}</td>
+                <td>{{detalle.producto.precio}}</td>
+                <td>{{detalle.importe}}</td>
+
+              </tr>
+            </tbody>
+          </table>
+
+          
+
+          <p class="text-end" style="margin: 0; padding-right: 10%;"><strong>Sub total: </strong>{{facturaDetalleRecibe.subtotal}}</p>
+          <p class="text-end" style="margin: 0;padding-right: 10%;"><strong>Igv: </strong>{{facturaDetalleRecibe.igv}}</p>
+          <p class="text-end" style="margin: 0;padding-right: 10%;"><strong>Total: </strong>{{facturaDetalleRecibe.total}}</p>
+          <hr class="hr-sm">
+
+
+          <span><strong>Vendedor: </strong> {{facturaDetalleRecibe.usuario.nombres +" "+facturaDetalleRecibe.usuario.apellidoMaterno+" "+facturaDetalleRecibe.usuario.apellidoMaterno}}</span>
+          
+          <div class="text-center">
+            <button type="button" class="btn btn-success mr-2"  (click)="imprimirFactura()">  <i class="fas fa-print"></i> Imrpimir </button>
+              
+            <button type="button" class="btn btn-success mr-2"  (click)="Cancelar()">  <i class=" fas fa-times"></i> Cancelar</button>
+              
+          </div>
+         
+         
+        </div>
+        
+      
+      
+      </div>
+    
+    </div>
+  </div>
+  

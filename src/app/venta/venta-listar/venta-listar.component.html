@@ -1,0 +1,71 @@
+
+<div class="row justify-content-center">
+    <div class="col-11">
+      <h2>LISTA DE VENTA</h2>
+
+      <form action="">
+      <div class="input-group mb-2">
+        <input type="text" class="form-control" placeholder="Escribe Dni/ Ruc" [(ngModel)]="nroFacturaBuscar" name="codigoBuscar">
+        <div class="input-group-append">
+          <a (click)="buscarFactura()"  class="btn btn-link"  style="background-color: #fff; border-top: 1px solid #ced4da;border-right: 1px solid #ced4da;border-bottom: 1px solid #ced4da;"><i class="fas fa-search"></i></a>
+        </div>
+        <div class="input-group-append">
+          <a  class="btn btn-link" (click)="abrirModal()" data-toggle="modal" data-target="#modal-lg-form"  ><i class="fas fa-user-plus"></i> Crear venta</a>
+        </div>
+        
+      </div>
+    </form>
+
+      
+      
+
+      <table class="table table-borderedless table-hover">
+        <thead>
+            <tr >
+              <th>#</th>
+                <th>Nro factura </th>
+                <th>Cliente </th>
+
+                <th>Tipo</th>
+                <th>Usuario</th>
+                
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let factura of facturas"[ngClass]="{'encontrado': factura.encontrado}" >
+              <td ><a type="button" (click)="detalleFactura(factura)" data-toggle="modal" data-target="#modal-ver-factura" style="border: 1px solid #dee2e6; padding-left: 2px; padding-right: 2px;" (click)="verDetalleVenta()">{{factura.id}}</a></td>
+                <td >{{factura?.nroDocumento}}</td>
+                <td>{{factura?.cliente?.nombreCliente}}</td>
+                <td>{{factura?.tipoFactura?.documento}}</td>
+                <td>{{factura?.usuario?.nombres}}</td>
+                
+               
+                <td class="text-center">
+                  <a (click)="editarFactura(factura)" data-toggle="modal" data-target="#modal-lg-editar" class="btn btn-link p-0" ><i class="fas fa-edit " style="color: blue;"></i></a>
+                  <a (click)="elimarFactura(factura)" class="btn btn-link p-1" ><i class="fas fa-trash-alt  " style="color: #eb9695;"></i></a>
+                </td>
+                
+                
+
+            </tr>
+           
+           
+        </tbody>
+    </table>
+
+
+
+      <app-paginador-venta *ngIf="paginador" [paginador]="paginador"></app-paginador-venta>
+
+    </div>
+     
+  </div>
+
+  
+
+
+  <app-form-factura *ngIf="formMClienteService.modal" [facturaRecibido]="facturaSeleccionado" ></app-form-factura>
+ 
+  <app-ver-factura *ngIf="formMClienteService.modal" [facturaDetalleRecibe]="facturaDetalleSeleccionado" ></app-ver-factura>
+

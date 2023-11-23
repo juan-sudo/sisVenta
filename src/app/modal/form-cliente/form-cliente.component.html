@@ -1,0 +1,151 @@
+
+<div class="modal fade" id="modal-lg" [ngClass]="{'modal-custom-background': clienteMosalService.modal}" *ngIf="clienteMosalService.modal"   >
+    <div class="modal-dialog modal-lg">
+      
+      <div class="modal-content">
+       
+        <div class="modal-header ">
+          <h4 class="modal-title d-flex justify-content-center">Registro de nuevo cliente</h4>
+          <button
+            type="button"
+            
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+          <div class="row">
+            <div class="col-12">
+              <p style="color:#000; font-style: italic">Los campos con signo (*) son obligatorio</p>
+            </div>
+          </div>
+          <form [formGroup]="clienteForm">
+            <div class="form-group">
+              <label for="nombreCliente">Nombre del cliente (*):</label>
+              <input formControlName="nombreCliente" class="form-control" id="nombreCliente" placeholder="Ingrese nombre cliente">
+              <div *ngIf="clienteForm?.get('nombreCliente')?.invalid && clienteForm?.get('nombreCliente')?.touched" style="background-color: #fff;color: red;border: none;">
+                <div *ngIf="clienteForm.get('nombreCliente')?.hasError('required')">Nombre es requerido</div>
+                <div *ngIf="clienteForm.get('nombreCliente')?.hasError('minlength')">Nombre debe tener al menos 3 caracteres</div>
+              </div>
+              
+            </div>
+            
+            <div class="form-group">
+              <label for="dniRuc">DNI / RUC (*):</label>
+              <input formControlName="dniRuc" class="form-control" id="dniRuc" placeholder="Ingresa dni o Ruc" maxlength="15"  >
+              <div *ngIf="clienteForm?.get('dniRuc')?.invalid && clienteForm?.get('dniRuc')?.touched" style="background-color: #fff;color: red;border: none;">
+                <div *ngIf="clienteForm.get('dniRuc')?.hasError('required')"> Dni o ruc es requerido</div>
+                <div *ngIf="clienteForm.get('dniRuc')?.hasError('minlength')">Dni o ruc debe tener al menos 3 caracteres</div>
+                <div *ngIf="clienteForm.get('dniRuc')?.hasError('soloNumeros')">
+                  El campo debe contener solo números
+                </div>
+              </div>
+              
+            </div>
+          
+            <div class="form-group">
+              <label for="direccion">Dirección (*):</label>
+              <input formControlName="direccion" class="form-control" id="direccion" placeholder="Ingresa direccion">
+              <div *ngIf="clienteForm?.get('nombreCliente')?.invalid && clienteForm?.get('direccion')?.touched" style="background-color: #fff;color: red;border: none;">
+                <div *ngIf="clienteForm.get('direccion')?.hasError('required')">Direccion es requerido</div>
+                <div *ngIf="clienteForm.get('direccion')?.hasError('minlength')">Direccion debe tener al menos 3 caracteres</div>
+              </div>
+              
+            </div>
+            <div class="text-center">
+            <button type="button" *ngIf="isEmptyObject(clienteRecibido) else actualizarButton" class="btn btn-success mr-2"  (click)="guardarCliente()">  <i class="fas fa-save"></i> Guardar</button>
+              <ng-template #actualizarButton>
+              <button type="button" *ngIf="!isEmptyObject(clienteRecibido)" class="btn btn-success mr-2" (click)="actualizarCliente()"> <i class="fas fa-save"></i> Actualizar</button>
+          </ng-template>
+
+          </div>
+          
+          <!-- <div class="text-center">
+            <button type="button" *ngIf="isEmptyObject(clienteRecibido)" class="btn btn-success mr-2" (click)="guardarCliente()" [disabled]="guardadoEnProgreso || !clienteForm.valid">
+              <i class="fas fa-save"></i> Guardar
+            </button>
+            <button type="button" *ngIf="!isEmptyObject(clienteRecibido)" class="btn btn-success mr-2" (click)="actualizarCliente()" [disabled]="!clienteForm.valid">
+              <i class="fas fa-save"></i> Actualizar
+            </button>
+          </div> -->
+          
+            <!-- <div class="text-center">
+              <button type="button"  class="btn btn-success mr-2" (click)="guardarCliente()" [disabled]="guardadoEnProgreso||!clienteForm.valid">
+                <i class="fas fa-save"></i> Guardar
+              </button>
+             
+            </div> -->
+          </form>
+          
+
+
+          <!-- <form  #clienteForm="ngForm">
+          <div class="form-group">
+            <label for="exampleInput">Nombre del cliente (*):</label>
+            <input type="text" class="form-control" id="exampleInput" placeholder="Introduce tu texto aquí" [(ngModel)]="cliente.nombreCliente" required minlength="3" name="nombreCliente" #nombreCliente="ngModel">
+            <div class="alert alert-danger small-alert p-0 b-0" style="background-color: #fff;color: red;border: none;" *ngIf="nombreCliente?.invalid && (nombreCliente?.dirty || nombreCliente?.touched)">
+              <div *ngIf="nombreCliente?.errors?.['required']">
+                Nombre es requerido
+              </div>
+              <div *ngIf="nombreCliente?.errors?.['minlength']">
+                Nombre debe tener al menos 3 caracteres
+              </div>
+            </div>
+          </div>
+          
+
+          <div class="form-group">
+            <label for="exampleInput">Dni / Ruc (*):</label>
+            <input type="text" class="form-control" id="exampleInput" placeholder="Introduce tu texto aquí" [(ngModel)]="cliente.dniRuc" required minlength="8" maxlength="14" name="dniRuc" #dniRuc="ngModel">
+            <div class="alert alert-danger small-alert p-0 b-0" style="background-color: #fff;color: red;border: none;" *ngIf="dniRuc?.invalid && (dniRuc?.dirty || dniRuc?.touched)">
+              <div *ngIf="dniRuc?.errors?.['required']">
+                Dni / Ruc es requerido
+              </div>
+              <div *ngIf="dniRuc?.errors?.['minlength']">
+                Nombre debe tener al menos 3 caracteres
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInput">Direccion (*):</label>
+            <input type="text" class="form-control" id="exampleInput" placeholder="Introduce tu texto aquí"  [(ngModel)]="cliente.direccion" required minlength="3" name="direccion" #direccion="ngModel">
+            <div class="alert alert-danger small-alert p-0 b-0" style="background-color: #fff;color: red;border: none;" *ngIf="direccion?.invalid && (direccion?.dirty || direccion?.touched)">
+              <div *ngIf="direccion?.errors?.['required']">
+                Direccion es requerido
+              </div>
+              <div *ngIf="direccion?.errors?.['minlength']">
+                Nombre debe tener al menos 3 caracteres
+              </div>
+            </div>
+          </div>
+
+
+          <div class="text-center">  Envoltura para centrar los botones -->
+            <!-- <button type="button" class="btn btn-success mr-2" (click)="guardarCliente()" [disabled]="!clienteForm.form.valid"><i class="fas fa-save"></i> Guardar</button>
+           
+          </div>
+
+        </form> -->
+
+           
+
+            
+              
+         
+         
+            
+  
+        
+        </div>
+        
+      
+      
+      </div>
+    
+    </div>
+  </div>
+  

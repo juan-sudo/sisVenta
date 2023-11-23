@@ -1,0 +1,62 @@
+
+<div class="row justify-content-center">
+    <div class="col-11">
+      <h2>LISTA DE USUARIO</h2>
+
+      <form action="">
+      <div class="input-group mb-2">
+        <input type="text" class="form-control" placeholder="Escribe Dni/ Ruc" [(ngModel)]="dniBuscar" name="dniBuscar">
+        <div class="input-group-append">
+          <a (click)="buscarUsuario()"  class="btn btn-link"  style="background-color: #fff; border-top: 1px solid #ced4da;border-right: 1px solid #ced4da;border-bottom: 1px solid #ced4da;"><i class="fas fa-search"></i></a>
+        </div>
+        <div class="input-group-append">
+          <a  class="btn btn-link" (click)="abrirModal()" data-toggle="modal" data-target="#modal-lg"  ><i class="fas fa-user-plus"></i></a>
+        </div>
+        
+      </div>
+    </form>
+
+      
+      
+
+      <table class="table table-borderedless table-hover">
+        <thead>
+            <tr >
+              <th>#</th>
+                <th>Usuario </th>
+                <th>Dni </th>
+
+                <th>Role</th>
+                
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let usuario of usuarios"[ngClass]="{'encontrado': usuario.encontrado}" >
+              <td >{{usuario.id}}</td>
+                <td >{{usuario.nombres+ " "+usuario.apellidoPaterno+" "+usuario.apellidoMaterno}}</td>
+                <td>{{usuario.dni}}</td>
+                <td>{{usuario?.role?.nombreRole}}</td>
+               
+                <td class="text-center">
+                  <a (click)="editarUsuario(usuario)" data-toggle="modal" data-target="#modal-lg" class="btn btn-link p-0" ><i class="fas fa-edit " style="color: blue;"></i></a>
+                  <a (click)="elimarUsuario(usuario)" class="btn btn-link p-1" ><i class="fas fa-trash-alt  " style="color: #eb9695;"></i></a>
+                </td>
+                
+                
+
+            </tr>
+           
+           
+        </tbody>
+    </table>
+
+
+
+      <app-paginador-usuario *ngIf="paginador" [paginador]="paginador"></app-paginador-usuario>
+
+    </div>
+     
+  </div>
+
+  <app-form-usuario *ngIf="modalFomCliente.modal" [usuarioRecibido]="usuarioSeleccionado" ></app-form-usuario>

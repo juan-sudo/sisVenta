@@ -1,0 +1,59 @@
+
+<div class="row justify-content-center">
+    <div class="col-11">
+      <h2>LISTA DE CLIENTE</h2>
+
+      <form action="">
+      <div class="input-group mb-2">
+        <input type="text" class="form-control" placeholder="Escribe Dni/ Ruc" [(ngModel)]="dniBuscar" name="dniBuscar">
+        <div class="input-group-append">
+          <a (click)="buscarCliente()"  class="btn btn-link"  style="background-color: #fff; border-top: 1px solid #ced4da;border-right: 1px solid #ced4da;border-bottom: 1px solid #ced4da;"><i class="fas fa-search"></i></a>
+        </div>
+        <div class="input-group-append">
+          <a href="#" class="btn btn-link" (click)="abrirModal()" data-toggle="modal" data-target="#modal-lg"  ><i class="fas fa-user-plus"></i></a>
+        </div>
+        
+      </div>
+    </form>
+
+      
+      
+
+      <table class="table table-borderedless table-hover">
+        <thead>
+            <tr >
+              <th>#</th>
+                <th>Ruc / Dni </th>
+                <th>Cliente</th>
+                <th>Direccion</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let cliente of clientes"[ngClass]="{'encontrado': cliente.encontrado}" >
+              <td >{{cliente.id}}</td>
+                <td >{{cliente.dniRuc}}</td>
+                <td>{{cliente.nombreCliente}}</td>
+                <td>{{cliente.direccion}}</td>
+                <td class="text-center">
+                  <a (click)="editarCliente(cliente)" data-toggle="modal" data-targxet="#modal-lg" class="btn btn-link p-0" ><i class="fas fa-edit " style="color: blue;"></i></a>
+                  <a (click)="elimarCliente(cliente)" class="btn btn-link p-1" ><i class="fas fa-trash-alt  " style="color: #eb9695;"></i></a>
+                </td>
+                
+                
+
+            </tr>
+           
+           
+        </tbody>
+    </table>
+
+
+
+      <app-paginator *ngIf="paginador" [paginador]="paginador"></app-paginator>
+
+    </div>
+     
+  </div>
+
+  <app-form-cliente *ngIf="modalClienteForm.modal" [clienteRecibido]="clienteSeleccionado" ></app-form-cliente>

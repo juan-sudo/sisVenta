@@ -1,0 +1,83 @@
+<div class="row justify-content-center">
+    <div class="col-11">
+        <div class="row">
+            <div class="col-12">
+              <p style="color:#000; font-style: italic">Los campos con signo (*) son obligatorio</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <label for="">Buscar</label>
+              <div class="input-group mb-2">
+                
+                <input type="text" class="form-control" placeholder="Escribe Dni/ Ruc" [(ngModel)]="dniBuscar" name="codigoBuscar">
+                <div class="input-group-append">
+                  <a   class="btn btn-link"  style="background-color: #fff; border-top: 1px solid #ced4da;border-right: 1px solid #ced4da;border-bottom: 1px solid #ced4da;"><i class="fas fa-search"></i></a>
+                </div>
+                <div class="input-group-append">
+                  <a  type="button"  class="btn btn-link"  (click)="abrirModal()" data-toggle="modal" data-target="#modal-lg" ><i class="fas fa-user"></i></a>
+                </div>
+                
+              </div>
+
+            </div>
+            <div class="col-12 col-md-6">
+              <label for="">Nombre dl cliente</label>
+              <div class="input-group mb-2">
+                
+                <input type="text" class="form-control" placeholder="Escribe Dni/ Ruc" [(ngModel)]="dniBuscar" name="codigoBuscar">
+                
+                
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <label for="">Bucar producto</label>
+              <div class="input-group mb-2">
+                
+                <input type="text"  class="form-control" placeholder="Escribe Dni/ Ruc" [(ngModel)]="buscarTexto" name="searchText"  (keyup)="onSearch()">
+                
+                <div class="container">
+                  <div class="product-list" *ngIf="productos.length > 0">
+                    <ul>
+                      <li *ngFor="let producto of productos" (click)="seleccionarProducto(producto)">
+                        {{ producto.descripcion }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div *ngIf="errorMessage">
+                  <p>{{errorMessage}}</p>
+                </div>
+                
+              </div>
+
+            </div>
+          
+          </div>
+
+          <table class="table table-bordered table-striped table-hover ">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Descripcion</th>
+                <th>Precio</th>
+                <th>Importe</th>
+              </tr>
+            </thead>
+            <!-- <tbody>
+              
+              <tr *ngFor="let detalle of factura.detalleFactura, let i=index"  >
+                <td>{{i+1}}</td>
+                <td>{{detalle.producto.descripcion}}</td>
+                <td>{{detalle.producto.precio}}</td>
+                <td>{{detalle.importe}}</td>
+             
+
+              </tr>
+            </tbody> -->
+          </table>
+    </div>
+</div>
